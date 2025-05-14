@@ -1,21 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const empleadosRoutes = require('./routes/empleados');
-const registrosRoutes = require('./routes/registros');
-require('dotenv').config();
-
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Configuración de CORS para permitir solicitudes desde el frontend
-app.use(cors({
-    origin: 'http://localhost' // Origen del frontend
-}));
+app.use(cors()); // Permitir solicitudes desde cualquier origen
 app.use(express.json());
 
-app.use('/api/empleados', empleadosRoutes);
-app.use('/api/registros', registrosRoutes);
+// Rutas de ejemplo
+app.get('/api/usuarios', (req, res) => {
+  res.json([{ id: 1, nombre: 'Usuario 1' }]);
+});
 
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
+// Inicia el servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
