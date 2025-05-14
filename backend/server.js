@@ -1,17 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
+const empleadosRoutes = require('./routes/empleados');
+const registrosRoutes = require('./routes/registros');
+require('dotenv').config();
 
-app.use(cors()); // Permitir solicitudes desde cualquier origen
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Configuración de CORS para permitir solicitudes desde el dominio de Vercel
+app.use(cors({
+    origin: ['http://localhost', 'https://asistencia-chi.vercel.app'] // Permitir localhost y Vercel
+}));
 app.use(express.json());
 
-// Rutas de ejemplo
-app.get('/api/usuarios', (req, res) => {
-  res.json([{ id: 1, nombre: 'Usuario 1' }]);
-});
+// Rutas de la API
+app.use('/api/empleados', empleadosRoutes);
+app.use('/api/registros', registrosRoutes);
 
 // Inicia el servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+app.listen(port, () => {
+    console.log(`Servidor corriendo en http://localhost:${port}`);
 });
