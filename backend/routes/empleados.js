@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM empleados');
         res.json(rows);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error al obtener empleados:', error.message);
+        res.status(500).json({ error: 'Error al obtener empleados' });
     }
 });
 
