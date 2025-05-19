@@ -1,8 +1,15 @@
+// asistencia/package.json (RAÍZ DEL PROYECTO)
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "mysql2": "^3.14.1"
+  "name": "asistencia-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "echo \"Frontend estático, abrir index.html directamente o usar un live server\"",
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "echo \"No hay dependencias de npm para el frontend estático\""
+    // Puedes añadir más scripts aquí si los necesitas para coordinar
   }
+  // Asegúrate de que NO haya secciones "main", "dependencies", o "devDependencies" aquí,
+  // a menos que sean realmente para herramientas globales del monorepo (poco común para este caso).
 }
