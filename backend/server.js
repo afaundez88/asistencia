@@ -9,7 +9,11 @@ const port = process.env.PORT || 3000;
 
 // Configuración de CORS para permitir solicitudes desde el dominio de Vercel
 app.use(cors({
-    origin: ['http://localhost', 'https://asistencia-chi.vercel.app', 'https://asistencia-idzhv7mlz-afaundezs-projects-c3cd0384.vercel.app', 'https://asistencia-h9lk8rszi-afaundezs-projects-c3cd0384.vercel.app'] // Permitir localhost y Vercel
+    origin: [
+        /localhost(:\d+)?$/, 
+        /^https://asistencia-chi\.vercel\.app$/,
+        /^https:\/\/.*\.vercel\.app$/ 
+    ]
 }));
 app.use(express.json());
 
