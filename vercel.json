@@ -1,33 +1,37 @@
+
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    }
-   
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/server.js"
-    },
-  
-    {
-      "src": "/assets/(.*)",        
-      "dest": "/frontend/assets/$1"
-    },
-    {
-      "src": "/css/(.*)",           
-      "dest": "/frontend/css/$1"
-    },
-    {
-      "src": "/js/(.*)",           
-      "dest": "/frontend/js/$1"
-    },
-    {
-      "src": "/(.*)",             
-      "dest": "/frontend/index.html" 
-    }
-  ]
+    "version": 2,
+    "builds": [
+        {
+            "src": "backend/server.js", 
+            "use": "@vercel/node"
+        }
+
+
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",          
+            "dest": "backend/server.js"  
+        },
+        {
+            "src": "/assets/(.*)",       
+            "dest": "/frontend/assets/$1"
+        },
+        {
+            "src": "/css/(.*)",         
+            "dest": "/frontend/css/$1"
+        },
+        {
+            "src": "/js/(.*)",           
+            "dest": "/frontend/js/$1"
+        },
+        {
+            "handle": "filesystem"      
+        },
+        {
+            "src": "/(.*)",              
+            "dest": "/frontend/index.html" 
+        }
+    ]
 }
