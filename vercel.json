@@ -2,47 +2,32 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/server.js",   // Ruta a tu archivo principal de Express
-      "use": "@vercel/node",
-      "config": {
-        // Opcional: Especifica la versión de Node.js si es necesario
-        // "maxLambdaSize": "50mb", // Aumentar si tu función es grande
-        // "includeFiles": ["backend/config/**", "backend/routes/**"] // Si Vercel no los incluye automáticamente
-      }
-    },
-    {
-      "src": "frontend/package.json", // Si tu frontend tiene un paso de build
-      "use": "@vercel/static-build",  // Usa esto si tu frontend se construye (ej. React, Vue, Svelte, Vite)
-      "config": {
-        "distDir": "dist" // O la carpeta donde se genera el build (ej. 'build', 'out')
-                          // Cambia "dist" al nombre real de tu carpeta de salida del build del frontend
-      }
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     }
-    // Si tu frontend son solo archivos HTML/CSS/JS estáticos sin un paso de build
-    // y están en, por ejemplo, frontend/public o directamente en frontend/
-    // podrías no necesitar un build para el frontend aquí, y Vercel podría detectarlos
-    // o podrías usar "@vercel/static" para la carpeta 'frontend'
+   
   ],
   "routes": [
     {
-      "src": "/api/(.*)",          // Todas las solicitudes a /api/...
-      "dest": "backend/server.js"  // Se dirigen a tu función Express del backend
+      "src": "/api/(.*)",
+      "dest": "backend/server.js"
     },
-    // Rutas para el frontend:
-    // Opción 1: Si usaste @vercel/static-build y tu frontend tiene un build
+  
     {
-      "handle": "filesystem" // Permite que Vercel maneje los archivos del build
+      "src": "/assets/(.*)",        
+      "dest": "/frontend/assets/$1"
     },
     {
-      "src": "/(.*)",              // Todas las demás solicitudes
-      "dest": "/frontend/$1"       // Intenta servir desde la carpeta del build del frontend
-                                   // (Vercel es inteligente y buscará index.html en la distDir)
-                                   // Si tu distDir es 'dist', Vercel servirá desde allí.
-                                   // Si tu frontend no tiene build y tu index.html está en frontend/index.html
-                                   // y tus assets en frontend/assets, esto también podría funcionar.
+      "src": "/css/(.*)",           
+      "dest": "/frontend/css/$1"
+    },
+    {
+      "src": "/js/(.*)",           
+      "dest": "/frontend/js/$1"
+    },
+    {
+      "src": "/(.*)",             
+      "dest": "/frontend/index.html" 
     }
   ]
-  // Opcional: Si tienes un package.json en la raíz y quieres que Vercel instale dependencias desde allí también
-  // (generalmente no es necesario si los package.json están dentro de backend/ y frontend/)
-  // "installCommand": "npm install --prefix backend && npm install --prefix frontend && npm install"
 }
