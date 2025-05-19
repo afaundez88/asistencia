@@ -13,16 +13,14 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Obtener empleado por código/RUT
-router.get('/by-rut/:codigoRut', async (req, res) => {
+// backend/routes/empleados.js
+router.get('/', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM empleados WHERE codigo_rut = ?', [req.params.codigoRut]);
-        if (rows.length === 0) {
-            return res.status(404).json({ error: 'Empleado no encontrado' });
-        }
-        res.json(rows[0]);
+        const [rows] = await pool.query('SELECT * FROM empleados');
+        res.json(rows);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error al obtener empleados:', error.message); // ESTO DEBERÍA APARECER EN LOS LOGS DE VERCEL
+        res.status(500).json({ error: 'Error al obtener empleados' }); // Esto es lo que probablemente recibes (38 bytes)
     }
 });
 
