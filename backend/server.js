@@ -7,21 +7,15 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configuración de CORS para permitir solicitudes desde el dominio de Vercel
+// Configuración de CORS para permitir solicitudes desde el frontend
 app.use(cors({
-    origin: [
-        /localhost(:\d+)?$/, 
-        /^https://asistencia-chi\.vercel\.app$/,
-        /^https:\/\/.*\.vercel\.app$/ 
-    ]
+    origin: 'http://localhost' // Origen del frontend
 }));
 app.use(express.json());
 
-// Rutas de la API
 app.use('/api/empleados', empleadosRoutes);
 app.use('/api/registros', registrosRoutes);
 
-// Inicia el servidor
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
