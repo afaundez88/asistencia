@@ -1,8 +1,13 @@
+
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "mysql2": "^3.14.1"
+  "name": "asistencia-monorepo", 
+  "version": "1.0.0",
+  "private": true, 
+  "scripts": {
+   
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "echo \"No dev script for plain HTML frontend, just open index.html\"", 
+    "install:all": "npm install --prefix backend && npm install --prefix frontend" 
   }
+  
 }
